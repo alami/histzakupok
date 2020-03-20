@@ -42,9 +42,21 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         array_push($menuItems ,
-            ['label' => 'Users', 'url' => ['/user/index']]);
+            ['label' => 'Bids', 'url' => ['/bid/index']]);
+        array_push($menuItems ,
+            ['label' => 'Protocols', 'url' => ['/protocol/index']]);
+        array_push($menuItems ,
+            ['label' => 'Aggreement', 'url' => ['/aggreement/index']]);
+        array_push($menuItems ,
+            ['label' => 'Lots', 'url' => ['/lot/index']]);
+        array_push($menuItems ,
+            ['label' => 'Files', 'url' => ['/file/index']]);
         array_push($menuItems ,
             ['label' => 'Filials', 'url' => ['/filial/index']]);
+        array_push($menuItems ,
+            ['label' => 'Organizations', 'url' => ['/org/index']]);
+        array_push($menuItems ,
+            ['label' => 'Users', 'url' => ['/user/index']]);
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
