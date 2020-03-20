@@ -21,6 +21,15 @@ class Helper
     const CURRENCY_USD = 1;
     const CURRENCY_EURO = 2;
 
+    const BID_CREATED = 0;
+    const BID_PROCESSING = 1;
+    const BID_CLOSED = 2;
+
+    const FINANCE_BUDGET = 0;
+    const FINANCE_UNBUDGET = 1;
+
+    const APPLICATION_TYPE = ['bid','aggreement','protocol'];
+
     public static function getUserStatuses()
     {
         return array(
@@ -47,6 +56,21 @@ class Helper
             self::CURRENCY_USD  => 'CURRENCY_USD',
             self::CURRENCY_EURO => 'CURRENCY_EURO',
 
+        );
+    }
+    public static function getBidStatuses()
+    {
+        return array(
+            self::BID_CREATED => 'BID_CREATED',
+            self::BID_PROCESSING => 'BID_PROCESSING',
+            self::BID_CLOSED => 'BID_CLOSED',
+        );
+    }
+    public static function getFinances()
+    {
+        return array(
+            self::FINANCE_BUDGET => 'FINANCE_BUDGET',
+            self::FINANCE_UNBUDGET => 'FINANCE_UNBUDGET',
         );
     }
     /*public static function getStatusLabel($id, $default = null)

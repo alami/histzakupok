@@ -1,6 +1,7 @@
 <?php
 
 use yii\db\Migration;
+use backend\models\Helper;
 
 class m200318_120210_create_user_table extends Migration
 {
@@ -27,8 +28,8 @@ class m200318_120210_create_user_table extends Migration
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
             'verification_token' => $this->string()->defaultValue(null),
-            'role' => $this->smallInteger()->notNull()->defaultValue(0),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'role' => $this->smallInteger()->notNull()->defaultValue(Helper::ROLE_GUEST),
+            'status' => $this->smallInteger()->notNull()->defaultValue(Helper::STATUS_ACTIVE),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);

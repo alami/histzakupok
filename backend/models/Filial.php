@@ -55,6 +55,6 @@ class Filial extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['filial_id' => 'id']);
+        return $this->hasMany(User::class, ['filial_id' => 'id']);
     }
 }

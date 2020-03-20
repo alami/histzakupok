@@ -12,7 +12,7 @@ class m200318_132036_add_filial_list extends Migration
      */
     public function safeUp()
     {
-        $this->batchInsert('filial', ['name_ru', 'name_uz'], [
+        $this->batchInsert('%filial', ['name_ru', 'name_uz'], [
             ['город Ташкент', 'Toshkent shahar'],
             ['Самаркандская область', 'Samarqand viloyati'],
             ['Джизакская область', 'Jizzax viloyati'],
