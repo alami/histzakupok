@@ -3,6 +3,8 @@
 namespace backend\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "org".
@@ -36,11 +38,9 @@ class Org extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name_ru', 'name_uz'], 'string', 'max' => 255],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
     }
 
@@ -67,7 +67,7 @@ class Org extends \yii\db\ActiveRecord
      */
     public function getAggreements()
     {
-        return $this->hasMany(Aggreement::className(), ['org_id' => 'id']);
+        return $this->hasMany(Aggreement::class, ['org_id' => 'id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class Org extends \yii\db\ActiveRecord
      */
     public function getCreatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
     /**
@@ -87,7 +87,7 @@ class Org extends \yii\db\ActiveRecord
      */
     public function getUpdatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+        return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 
     /**
@@ -97,6 +97,13 @@ class Org extends \yii\db\ActiveRecord
      */
     public function getProtocols()
     {
-        return $this->hasMany(Protocol::className(), ['org_id' => 'id']);
+        return $this->hasMany(Protocol::class, ['org_id' => 'id']);
+    }
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+            BlameableBehavior::class,
+        ];
     }
 }

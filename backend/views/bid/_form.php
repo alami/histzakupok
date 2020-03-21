@@ -1,6 +1,8 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\VarDumper;
 use yii\widgets\ActiveForm;
 use backend\models\Helper;
 use backend\models\Filial;
@@ -9,13 +11,17 @@ use backend\models\Filial;
 /* @var $model backend\models\Bid */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php //VarDumper::dump(Filial::find()->select('id', 'name_ru')->asArray()->all(),10,true);
+$filials = Filial::find()->select(['id','name_ru'])->asArray()->all();
+$filarr = []; foreach ($filials as $k=>$v) $filarr[$v['id']]=$v['name_ru'];
+?>
 
 <div class="bid-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="container">
         <div class="row">
-            <div class="col-sm-4"><?= $form->field($model, 'filial_id')->dropDownList([Filial::find()->select('id', 'name_ru')->asArray()->all()]); ?></div>
+            <div class="col-sm-4"><?= $form->field($model, 'filial_id')
+                    ->dropDownList($filarr); ?></div>
             <div class="col-sm-4"><?= $form->field($model, 'name_ru')->textInput(['maxlength' => true]) ?></div>
             <div class="col-sm-4"><?= $form->field($model, 'name_uz')->textInput(['maxlength' => true]) ?></div>
         </div>

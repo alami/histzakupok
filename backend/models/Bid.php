@@ -41,8 +41,8 @@ class Bid extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['filial_id', 'currency_id', 'bid_status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['name_ru', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
+            [['filial_id', 'currency_id', 'bid_status',], 'integer'],
+            [['name_ru',], 'required'],
             [['max_cost'], 'number'],
             [['name_ru', 'name_uz'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
