@@ -26,9 +26,9 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index','pattern'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['?'],//@
                     ],
                 ],
             ],
@@ -96,5 +96,23 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+    public function actionPattern () {
+        $ducks = [
+            new DuckMallard(),
+            new DuckRedhat(),
+            new DuckRubber(),
+            new DuckDecoy(),
+            ];
+        $ret = '';
+        foreach ($ducks as $k=>$d) {
+            $ret .= ($k+1).') '
+                .$d->display().'<br>'
+                .$d->quack().'<br>'
+                .$d->swim().'<br>'
+                .$d->fly().'<br>'
+                .'<hr>';
+        }
+        return $ret;
     }
 }
