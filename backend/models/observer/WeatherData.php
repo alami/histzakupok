@@ -51,4 +51,19 @@ class WeatherData implements Subject
         $this->pressure = $pressure;
         $this->measurementsChanged();
     }
+
+    public function getTemperature()
+    {
+        return $this->temperature;
+    }
+
+    public function getHumidity()
+    {
+        return $this->humidity;
+    }
+
+    public function getPressure()
+    {
+        return $this->pressure;
+    }
 }

@@ -41,16 +41,20 @@ class SiteController extends Controller {
     }
     public function actionObserver () {
         $weatherData = new WeatherData();
+        $weatherData->setMeasurements(80, 65, 30.4);
+        $currentDisplay = new CurrentConditionsDisplay($weatherData);
+
         $currentDisplay = new CurrentConditionsDisplay($weatherData);
         $statisticsDisplay = new StatisticsDisplay($weatherData);
         $forecastDisplay = new ForecastDisplay($weatherData);
 
         $weatherData->setMeasurements(80, 65, 30.4);
-//        VarDumper::dump($weatherData,9,true);
         $weatherData->setMeasurements(82, 70, 29.2);
         $weatherData->setMeasurements(78, 90, 29.2);
 
-        $ret = 'WhetherStation '.'<br>'
+        $ret = $currentDisplay->update(80, 65, 30.2);
+
+        $ret .= '<br>'.'WhetherStation '.'<br>'
             .'WeatherData - черный ящик-получить обновленную информацию'.'<br>'
             .'Views - 3 основных элементов: 1)текущего состояния'.'<br>'
             ." (1.1-температура, 1.2-влажность и 1.3-давление), 2)статистики и 3)прогноза".'<br>'

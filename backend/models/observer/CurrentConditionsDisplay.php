@@ -24,7 +24,7 @@ class CurrentConditionsDisplay implements Observer, DisplayElement
     {
         $this->temperature = $temperature;
         $this->humidity = $humidity;
-        $this->display();
+        return $this->display();
     }
 
     public function display()
