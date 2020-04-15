@@ -38,7 +38,16 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
     ];
-    $menuItems[] = ['label' => 'Pattern01', 'url' => ['/site/pattern']];
+    $menuItems[] = ['label' => 'Patterns', //'url' => ['/site/pattern'],
+        'items' => [
+            ['label' => 'strategy', 'url' => ['/site/strategy']],
+            ['label' => 'observer', 'url' => ['/site/observer']],
+            ['label' => 'Pattern01', 'url' => ['/site/pattern03']],
+            ['label' => 'Pattern01', 'url' => ['/site/pattern04']],
+            ['label' => 'Pattern01', 'url' => ['/site/pattern05']],
+            ['label' => 'Pattern01', 'url' => ['/site/pattern']],
+        ]
+    ];
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
