@@ -43,8 +43,10 @@ class SiteController extends Controller {
                 .$d->behaviorFly->fly().'<br>'
                 .'<hr>';
         }
-        return $ret;
+        $patterntitle = 'Strategy';$patterncomment = $ret; $ret='';
+        return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
+    //--------------------------------------------------------------
     public function actionObserver () {
         $weatherData = new WeatherData();
         $weatherData->setMeasurements(80, 65, 30.4);
@@ -59,55 +61,70 @@ class SiteController extends Controller {
         $weatherData->setMeasurements(78, 90, 29.2);
 
         $ret = $currentDisplay->update(80, 65, 30.2);
-
-        $ret .= '<br>'.'WhetherStation '.'<br>'
+        $patterntitle = 'Observer';
+        $patterncomment = '<br>'.'WhetherStation '.'<br>'
             .'WeatherData - черный ящик-получить обновленную информацию'.'<br>'
             .'Views - 3 основных элементов: 1)текущего состояния'.'<br>'
             ." (1.1-температура, 1.2-влажность и 1.3-давление), 2)статистики и 3)прогноза".'<br>'
-            ;
-        return $ret;
+            .'<hr>В демо вместо display() исп-лась update()'
+        ;
+        return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
+//---------------------------------------------------------
     public function actionDecorator () {
         $beverage = new Espresso();
         $beverage2 = new DarkRoast();
-        $beverage2 = new Mocha($beverage2);
-        $beverage2 = new Mocha($beverage2);
-        $beverage2 = new Whip($beverage2);
+            $beverage2 = new Mocha($beverage2);
+            $beverage2 = new Mocha($beverage2);
+            $beverage2 = new Whip($beverage2);
         $beverage3 = new HouseBlend();
-        $beverage3 = new Soy($beverage3);
-        $beverage3 = new Mocha($beverage3);
-        $beverage3 = new Whip($beverage3);
+            $beverage3 = new Soy($beverage3);
+            $beverage3 = new Mocha($beverage3);
+            $beverage3 = new Whip($beverage3);
         $ret = $beverage->getDescription() . ' $' . $beverage->cost().'<br>';
         $ret .= $beverage2->getDescription() . ' $' . $beverage2->cost().'<br>';
         $ret .= $beverage3->getDescription() . ' $' . $beverage3->cost().'<br>';
-        return 'decorator: '.'<br>'.$ret;
+        $patterntitle = 'decorator: '.'<br>';
+        $patterncomment = '<hr>В конструкторы всех "добавок" как и в "типах кофе" надо вставить'
+            .'<br>$this->description = "Mocha";';
+        return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
+//-------------------------------------------------------------
     public function actionFactory () {
-        return 'Factory';
+        $ret='';$patterntitle = 'Factory';$patterncomment = '';
+        return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionSingleton () {
-        return 'Singleton';
+         $ret='';$patterntitle = 'Singleton';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionAdapter () {
-        return 'Adapter';
+         $ret='';$patterntitle = 'Adapter';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionFasad () {
-        return 'Fasad';
+         $ret='';$patterntitle = 'Fasad';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionPatternmethod () {
-        return 'PatternMethod';
+         $ret='';$patterntitle = 'PatternMethod';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionIterator () {
-        return 'Iterator';
+         $ret='';$patterntitle = 'Iterator';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionComponent () {
-        return 'Component';
+         $ret='';$patterntitle = 'Component';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionState () {
-        return 'State';
+         $ret='';$patterntitle = 'State';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionProxy () {
-        return 'Proxy';
+         $ret='';$patterntitle = 'Proxy';$patterncomment = '';
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
     /**
      * {@inheritdoc}
