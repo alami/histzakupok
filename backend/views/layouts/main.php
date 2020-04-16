@@ -40,12 +40,18 @@ AppAsset::register($this);
     ];
     $menuItems[] = ['label' => 'Patterns', //'url' => ['/site/pattern'],
         'items' => [
-            ['label' => 'strategy', 'url' => ['/site/strategy']],
-            ['label' => 'observer', 'url' => ['/site/observer']],
-            ['label' => 'Pattern01', 'url' => ['/site/pattern03']],
-            ['label' => 'Pattern01', 'url' => ['/site/pattern04']],
-            ['label' => 'Pattern01', 'url' => ['/site/pattern05']],
-            ['label' => 'Pattern01', 'url' => ['/site/pattern']],
+            ['label' => 'Strategy', 'url' => ['/site/strategy']],
+            ['label' => 'Observer', 'url' => ['/site/observer']],
+            ['label' => 'Decorator', 'url' => ['/site/decorator']],
+            ['label' => 'Factory', 'url' => ['/site/factory']],
+            ['label' => 'Singleton', 'url' => ['/site/singleton']],
+            ['label' => 'Adapter', 'url' => ['/site/adapter']],
+            ['label' => 'Fasad', 'url' => ['/site/fasad']],
+            ['label' => 'PatternMethod', 'url' => ['/site/patternmethod']],
+            ['label' => 'Iterator', 'url' => ['/site/iterator']],
+            ['label' => 'Component', 'url' => ['/site/component']],
+            ['label' => 'State', 'url' => ['/site/state']],
+            ['label' => 'Proxy', 'url' => ['/site/proxy']],
         ]
     ];
 

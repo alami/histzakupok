@@ -1,6 +1,12 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\decorator\DarkRoast;
+use backend\models\decorator\Espresso;
+use backend\models\decorator\HouseBlend;
+use backend\models\decorator\Mocha;
+use backend\models\decorator\Soy;
+use backend\models\decorator\Whip;
 use backend\models\observer\CurrentConditionsDisplay;
 use backend\models\observer\ForecastDisplay;
 use backend\models\observer\StatisticsDisplay;
@@ -61,7 +67,48 @@ class SiteController extends Controller {
             ;
         return $ret;
     }
-
+    public function actionDecorator () {
+        $beverage = new Espresso();
+        $beverage2 = new DarkRoast();
+        $beverage2 = new Mocha($beverage2);
+        $beverage2 = new Mocha($beverage2);
+        $beverage2 = new Whip($beverage2);
+        $beverage3 = new HouseBlend();
+        $beverage3 = new Soy($beverage3);
+        $beverage3 = new Mocha($beverage3);
+        $beverage3 = new Whip($beverage3);
+        $ret = $beverage->getDescription() . ' $' . $beverage->cost().'<br>';
+        $ret .= $beverage2->getDescription() . ' $' . $beverage2->cost().'<br>';
+        $ret .= $beverage3->getDescription() . ' $' . $beverage3->cost().'<br>';
+        return 'decorator: '.'<br>'.$ret;
+    }
+    public function actionFactory () {
+        return 'Factory';
+    }
+     public function actionSingleton () {
+        return 'Singleton';
+    }
+     public function actionAdapter () {
+        return 'Adapter';
+    }
+     public function actionFasad () {
+        return 'Fasad';
+    }
+     public function actionPatternmethod () {
+        return 'PatternMethod';
+    }
+     public function actionIterator () {
+        return 'Iterator';
+    }
+     public function actionComponent () {
+        return 'Component';
+    }
+     public function actionState () {
+        return 'State';
+    }
+     public function actionProxy () {
+        return 'Proxy';
+    }
     /**
      * {@inheritdoc}
      */
@@ -76,7 +123,10 @@ class SiteController extends Controller {
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','strategy','observer','pattern03','pattern04','pattern05'],
+                        'actions' => ['logout', 'index','strategy','observer','decorator',
+                            'factory','singleton','adapter','pattern05','fasad','patternmethod',
+                            'iterator','component','state','proxy','pattern04','pattern05',
+                            ],
                         'allow' => true,
                         'roles' => ['?'],//@
                     ],
