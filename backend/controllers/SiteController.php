@@ -7,6 +7,9 @@ use backend\models\decorator\HouseBlend;
 use backend\models\decorator\Mocha;
 use backend\models\decorator\Soy;
 use backend\models\decorator\Whip;
+use backend\models\factory\ChicagoPizzaStore;
+use backend\models\factory\NYPizzaStore;
+use backend\models\factory\PizzaStore;
 use backend\models\observer\CurrentConditionsDisplay;
 use backend\models\observer\ForecastDisplay;
 use backend\models\observer\StatisticsDisplay;
@@ -91,7 +94,11 @@ class SiteController extends Controller {
     }
 //-------------------------------------------------------------
     public function actionFactory () {
-        $ret='';$patterntitle = 'Factory';$patterncomment = '';
+        $nyFactory = new NYPizzaFactory();    //NYPizzaFactory
+        $nyStore = new PizzaStore($nyFactory); //PizzaStore
+        $r = $nyStore->orderPizza('cheese');
+        $ret = $r->prepare();
+        $patterntitle = 'Factory';$patterncomment = '';
         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionSingleton () {
