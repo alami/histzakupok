@@ -11,10 +11,10 @@ abstract class Pizza
      * @var String $dough;
      * @var String $sauce;
      */
-    public $name;
-    public $dough;
-    public $sauce;
-    public $toppings = []; //new ArrayList<String>();
+    public $name;  //название
+    public $dough;//тип основы
+    public $sauce;//тип соуса
+    public $toppings = []; //добавки new ArrayList<String>();
 
     function prepare()
     {

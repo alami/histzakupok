@@ -4,14 +4,14 @@ namespace backend\models\factory;
 
 use yii\helpers\VarDumper;
 
-/*abstract*/ class PizzaStore
+abstract class PizzaStore
 {
     public function orderPizza(String $type): Pizza
     {
         /*
          * var@ Pizza $pizza
          */
-        $pizza = (new SimplePizzaFactory)->createPizza($type);
+        $pizza = $this->createPizza($type);
 
         $pizza->prepare();
         $pizza->bake();
@@ -19,5 +19,5 @@ use yii\helpers\VarDumper;
         $pizza->box();
         return $pizza;
     }
-//    abstract function createPizza(String $type);
+    abstract function createPizza(String $type) : Pizza;
 }

@@ -94,10 +94,13 @@ class SiteController extends Controller {
     }
 //-------------------------------------------------------------
     public function actionFactory () {
-        $nyFactory = new NYPizzaFactory();    //NYPizzaFactory
-        $nyStore = new PizzaStore($nyFactory); //PizzaStore
-        $r = $nyStore->orderPizza('cheese');
+        $nyStore = new NYPizzaStore(); //PizzaStore
+        $r = $nyStore->orderPizza("cheese");
         $ret = $r->prepare();
+        $chicagoStore = new ChicagoPizzaStore(); //PizzaStore
+        $ret .= '<hr>';
+        $r = $chicagoStore->orderPizza("cheese");
+        $ret .= $r->prepare();
         $patterntitle = 'Factory';$patterncomment = '';
         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
