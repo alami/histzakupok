@@ -15,18 +15,12 @@ abstract class Pizza
     public $dough;//тип основы
     public $sauce;//тип соуса
     public $toppings = []; //добавки new ArrayList<String>();
+    public $veggies = [];
+    public $cheese;
+    public $pepperoni;
+    public $clam;
 
-    function prepare()
-    {
-        $ret = "Preparing " . $this->name."<br>";
-        $ret .= "Tossing dough..."."<br>";
-        $ret .= "Adding sauce..."."<br>";
-        $ret .= "Adding toppings: "."<br>";
-        foreach ($this->toppings as $topping) { //String  :
-            $ret .= " " . $topping."<br>";
-        }
-        return $ret;
-    }
+    abstract function prepare();
 
     function bake()
     {
@@ -43,8 +37,14 @@ abstract class Pizza
         return "Place pizza in official PizzaStore box";
     }
 
+    public function setName(String $name) {
+        $this->name = $name;
+    }
     public function getName(): String
     {
         return $this->name;
+    }
+    public function toString () {
+
     }
 }

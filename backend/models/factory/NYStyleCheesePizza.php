@@ -13,4 +13,9 @@ class NYStyleCheesePizza extends Pizza
         $sauce = "Marinara Sauce";//с соусом «маринара»
         $topping[] = "Grated Reggiano Cheese";
     }   // 1 добавка: сыр «реджано»!
+
+    function prepare()
+    {
+        return 'Prepare "NYStyleCheesePizza" '.$this->name;
+    }
 }

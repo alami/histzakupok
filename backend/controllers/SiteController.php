@@ -101,7 +101,11 @@ class SiteController extends Controller {
         $ret .= '<hr>';
         $r = $chicagoStore->orderPizza("cheese");
         $ret .= $r->prepare();
-        $patterntitle = 'Factory';$patterncomment = '';
+        $patterntitle = 'Factory';
+        $patterncomment = '145 - SimplePizzaFactory - via IF<br>'
+        .'165 - Factory Method - <br>'
+        .'175 - DI - <br>'
+        .'189 - Abstract Method <br>';
         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionSingleton () {

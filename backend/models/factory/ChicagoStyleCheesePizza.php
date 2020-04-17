@@ -16,4 +16,9 @@ class ChicagoStyleCheesePizza extends Pizza
     public function cut () {//нарезается не клиньями, а квадратами
         return "Cutting the pizza into square slices<br>";
     }
+
+    function prepare()
+    {
+        return 'Prepare "ChicagoStyleCheesePizza" '.$this->name;
+    }
 }
