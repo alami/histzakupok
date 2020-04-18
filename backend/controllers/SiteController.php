@@ -14,6 +14,7 @@ use backend\models\observer\CurrentConditionsDisplay;
 use backend\models\observer\ForecastDisplay;
 use backend\models\observer\StatisticsDisplay;
 use backend\models\observer\WeatherData;
+use backend\models\singleton\ChocolateBoiler;
 use backend\models\strategy\DuckDecoy;
 use backend\models\strategy\DuckMallard;
 use backend\models\strategy\DuckModel;
@@ -109,7 +110,8 @@ class SiteController extends Controller {
         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionSingleton () {
-         $ret='';$patterntitle = 'Singleton';$patterncomment = '';
+        $a=ChocolateBoiler::getInstance();
+         $ret=$a->isBoiled();$patterntitle = 'Singleton';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionAdapter () {
