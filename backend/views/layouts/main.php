@@ -45,6 +45,7 @@ AppAsset::register($this);
             ['label' => 'Decorator', 'url' => ['/site/decorator']],
             ['label' => 'Factory', 'url' => ['/site/factory']],
             ['label' => 'Singleton', 'url' => ['/site/singleton']],
+            ['label' => 'Command', 'url' => ['/site/command']],
             ['label' => 'Adapter', 'url' => ['/site/adapter']],
             ['label' => 'Fasad', 'url' => ['/site/fasad']],
             ['label' => 'PatternMethod', 'url' => ['/site/patternmethod']],

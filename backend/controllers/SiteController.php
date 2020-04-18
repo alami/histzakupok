@@ -1,6 +1,8 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\command\GarageDoor;
+use backend\models\command\GarageDoorOpenCommand;
 use backend\models\decorator\DarkRoast;
 use backend\models\decorator\Espresso;
 use backend\models\decorator\HouseBlend;
@@ -21,6 +23,9 @@ use backend\models\strategy\DuckModel;
 use backend\models\strategy\DuckRedhat;
 use backend\models\strategy\DuckRubber;
 use backend\models\strategy\FlyRoketPowered;
+use backend\models\command\Light;
+use backend\models\command\LightOnCommand;
+use backend\models\command\SimpleRemoteControl;
 use Yii;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -114,32 +119,50 @@ class SiteController extends Controller {
          $ret=$a->isBoiled();$patterntitle = 'Singleton';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
+     public function actionCommand () {
+       $remote = new SimpleRemoteControl();
+        $light = new Light();
+        $garageDoor = new GarageDoor();//GarageDoor
+
+        $lightOn = new LightOnCommand($light);
+        $garageOpen = new GarageDoorOpenCommand($garageDoor);
+
+        $remote->setCommand($lightOn);
+         $ret = $remote->buttonWasPressed();
+        $remote->setCommand($garageOpen);
+        $ret .= $remote->buttonWasPressed();
+        $patterntitle = 'Command';
+        $patterncomment =
+             'посетитель-заказ-takeOrder()-официантка-orderUp()-повар<br>'
+             .'клиент-команда-setCommand()-инициатор-execute()-полуатель<br>';
+        return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
+    }
      public function actionAdapter () {
-         $ret='';$patterntitle = 'Adapter';$patterncomment = '';
+         $ret='Adapter';$patterntitle = 'Adapter';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionFasad () {
-         $ret='';$patterntitle = 'Fasad';$patterncomment = '';
+         $ret='Fasad';$patterntitle = 'Fasad';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionPatternmethod () {
-         $ret='';$patterntitle = 'PatternMethod';$patterncomment = '';
+         $ret='PatternMethod';$patterntitle = 'PatternMethod';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionIterator () {
-         $ret='';$patterntitle = 'Iterator';$patterncomment = '';
+         $ret='Iterator';$patterntitle = 'Iterator';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionComponent () {
-         $ret='';$patterntitle = 'Component';$patterncomment = '';
+         $ret='Component';$patterntitle = 'Component';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionState () {
-         $ret='';$patterntitle = 'State';$patterncomment = '';
+         $ret='State';$patterntitle = 'State';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionProxy () {
-         $ret='';$patterntitle = 'Proxy';$patterncomment = '';
+         $ret='Proxy';$patterntitle = 'Proxy';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
     /**
@@ -157,7 +180,7 @@ class SiteController extends Controller {
                     ],
                     [
                         'actions' => ['logout', 'index','strategy','observer','decorator',
-                            'factory','singleton','adapter','pattern05','fasad','patternmethod',
+                            'factory','singleton','command','adapter','fasad','patternmethod',
                             'iterator','component','state','proxy','pattern04','pattern05',
                             ],
                         'allow' => true,
