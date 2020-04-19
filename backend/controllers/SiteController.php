@@ -8,6 +8,7 @@ use backend\models\command\GarageDoor;
 use backend\models\command\GarageDoorCloseCommand;
 use backend\models\command\GarageDoorOpenCommand;
 use backend\models\command\LightOffCommand;
+use backend\models\command\MacroCommand;
 use backend\models\command\RemoteControl;
 use backend\models\command\Stereo;
 use backend\models\command\StereoOffCommand;
@@ -153,12 +154,20 @@ class SiteController extends Controller {
          $remote->setCommand(2, $ceilingFanOn, $ceilingFanOff);
          $remote->setCommand(3, $garageOpen, $garageClose);
          $remote->setCommand(4, $stereoOnWithCD, $stereoOff);
+
+         $partyOn =  [$livingRoomLightOn, $stereoOnWithCD, ] ;
+         $partyOff =  [$kitchenRoomLightOff, $stereoOff, ] ;//Command[]
+         $partyOnMacro  = new MacroCommand($partyOn); //MacroCommand
+         $partyOffMacro = new MacroCommand($partyOff);
+         $remote->setCommand(6, $partyOnMacro, $partyOffMacro);
+
          $ret = '<table border="1">';
          for ($i=0;$i<7;$i++) {
              $ret .= '<tr><td>'.$remote->onButtonWasPushed($i);
              $ret .= '<td>'.$remote->offButtonWasPushed($i);
          }
          $ret .= '</table>';
+
          $patterntitle = 'Command';
         $patterncomment =
              'посетитель-заказ-takeOrder()-официантка-orderUp()-повар<br>'
