@@ -6,7 +6,7 @@ use backend\models\command\Command;
 use backend\models\command\Door;
 use yii\helpers\VarDumper;
 
-class GarageDoorOpenCommand implements Command
+class GarageDoorCloseCommand implements Command
 {
     public $door; //GarageDoor
     public function __construct(GarageDoor $door)
@@ -16,6 +16,6 @@ class GarageDoorOpenCommand implements Command
 
     public function execute()
     {
-        return $this->door->open();
+        return $this->door->close();
     }
 }

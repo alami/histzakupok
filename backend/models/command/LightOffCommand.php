@@ -6,7 +6,7 @@ use backend\models\command\Command;
 use backend\models\command\Light;
 use yii\helpers\VarDumper;
 
-class LightOnCommand implements Command
+class LightOffCommand implements Command
 {
     public $light; //Light
 
@@ -17,6 +17,6 @@ class LightOnCommand implements Command
 
     public function execute()
     {
-        return $this->light->on();
+        return $this->light->off();
     }
 }

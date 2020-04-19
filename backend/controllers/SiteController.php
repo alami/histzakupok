@@ -1,8 +1,17 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\command\CeilingFan;
+use backend\models\command\CeilingFanOffCommand;
+use backend\models\command\CeilingFanOnCommand;
 use backend\models\command\GarageDoor;
+use backend\models\command\GarageDoorCloseCommand;
 use backend\models\command\GarageDoorOpenCommand;
+use backend\models\command\LightOffCommand;
+use backend\models\command\RemoteControl;
+use backend\models\command\Stereo;
+use backend\models\command\StereoOffCommand;
+use backend\models\command\StereoOnWithCDCommand;
 use backend\models\decorator\DarkRoast;
 use backend\models\decorator\Espresso;
 use backend\models\decorator\HouseBlend;
@@ -120,22 +129,46 @@ class SiteController extends Controller {
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionCommand () {
-       $remote = new SimpleRemoteControl();
-        $light = new Light();
-        $garageDoor = new GarageDoor();//GarageDoor
+         $remote = new RemoteControl();
 
-        $lightOn = new LightOnCommand($light);
-        $garageOpen = new GarageDoorOpenCommand($garageDoor);
+         $livingRoomLight = new Light("Living Room");
+         $kitchenLight = new Light("Kitchen");
+         $ceilingFan = new CeilingFan("Living Room");
+         $garageDoor = new GarageDoor();
+         $stereo = new Stereo();
 
-        $remote->setCommand($lightOn);
-         $ret = $remote->buttonWasPressed();
-        $remote->setCommand($garageOpen);
-        $ret .= $remote->buttonWasPressed();
-        $patterntitle = 'Command';
+         $livingRoomLightOn = new LightOnCommand($livingRoomLight);
+         $livingRoomLightOff = new LightOffCommand($livingRoomLight);
+         $kitchenRoomLightOn = new LightOnCommand($kitchenLight);
+         $kitchenRoomLightOff = new LightOffCommand($kitchenLight);
+         $ceilingFanOn = new CeilingFanOnCommand($ceilingFan);
+         $ceilingFanOff = new CeilingFanOffCommand($ceilingFan);
+         $garageOpen = new GarageDoorOpenCommand($garageDoor);
+         $garageClose = new GarageDoorCloseCommand($garageDoor);
+         $stereoOnWithCD = new StereoOnWithCDCommand($stereo);
+         $stereoOff = new StereoOffCommand($stereo);
+
+         $remote->setCommand(0, $livingRoomLightOn, $livingRoomLightOff);
+         $remote->setCommand(1, $kitchenRoomLightOn, $kitchenRoomLightOff);
+         $remote->setCommand(2, $ceilingFanOn, $ceilingFanOff);
+         $remote->setCommand(3, $garageOpen, $garageClose);
+         $remote->setCommand(4, $stereoOnWithCD, $stereoOff);
+         $ret = '<table border="1">';
+         for ($i=0;$i<7;$i++) {
+             $ret .= '<tr><td>'.$remote->onButtonWasPushed($i);
+             $ret .= '<td>'.$remote->offButtonWasPushed($i);
+         }
+         $ret .= '</table>';
+         $patterntitle = 'Command';
         $patterncomment =
              'посетитель-заказ-takeOrder()-официантка-orderUp()-повар<br>'
-             .'клиент-команда-setCommand()-инициатор-execute()-полуатель<br>';
-        return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
+             .'клиент-команда-setCommand()-инициатор-execute()-покупатель<br>'
+             .'информация об операции и получателе «упаковывается» '
+             .'в объекте с единственным методом execute()<br>'
+             .'Внешние объекты не знают, какие именно операции'
+             .'выполняются, и с каким получателем'
+             ;
+         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionAdapter () {
          $ret='Adapter';$patterntitle = 'Adapter';$patterncomment = '';
