@@ -1,6 +1,10 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\adapter\Duck;
+use backend\models\adapter\MallardDuck;
+use backend\models\adapter\TurkeyAdapter;
+use backend\models\adapter\WildTurkey;
 use backend\models\command\CeilingFan;
 use backend\models\command\CeilingFanOffCommand;
 use backend\models\command\CeilingFanOnCommand;
@@ -26,6 +30,7 @@ use backend\models\observer\CurrentConditionsDisplay;
 use backend\models\observer\ForecastDisplay;
 use backend\models\observer\StatisticsDisplay;
 use backend\models\observer\WeatherData;
+use backend\models\patternmethod\Tea;
 use backend\models\singleton\ChocolateBoiler;
 use backend\models\strategy\DuckDecoy;
 use backend\models\strategy\DuckMallard;
@@ -179,20 +184,44 @@ class SiteController extends Controller {
              ;
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
+    static function testDuck (Duck $duck) {
+        $ret = '';
+        $ret .= $duck->quack().'<br>';
+        $ret .= $duck->fly().'<br>';
+        return $ret;
+    }
      public function actionAdapter () {
-         $ret='Adapter';$patterntitle = 'Adapter';$patterncomment = '';
-         return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
+        $duck = new MallardDuck();
+        $turkey = new WildTurkey();
+        $turkeyAdapter = new TurkeyAdapter($turkey);
+        $ret = "The Turkey says...<br>";
+         $ret .= $turkey->gobble();
+         $ret .= $turkey->fly();
+         $ret .= "<br>The Duck says...<br>";
+         $ret .= self::testDuck($duck);
+         $ret .= "<br>The TurkeyAdapter says...<br>";
+         $ret .= self::testDuck($turkeyAdapter);
+
+        $patterntitle = 'Adapter';
+        $patterncomment = 'инкапсуляция алгоритмических блоков, чтобы<br>'
+            .'преобразует интерфейс класса к другому интерфейсу, на который рассчитан ваш клиент.';
+        return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionFasad () {
          $ret='Fasad';$patterntitle = 'Fasad';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionPatternmethod () {
-         $ret='PatternMethod';$patterntitle = 'PatternMethod';$patterncomment = '';
+         $t = new Tea();
+         $ret = $t->prepareRecipe();
+         $patterntitle = 'PatternMethod';
+         $patterncomment = 'субклассы могли в любой момент связаться с нужным алгоритмом обработки.<br>'
+         .'«Перехватчиком» называется метод, объявленный абстрактным классом, но имеющий пустую реализацию<br>';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionIterator () {
-         $ret='Iterator';$patterntitle = 'Iterator';$patterncomment = '';
+         $ret='Iterator';
+         $patterntitle = 'Iterator';$patterncomment = '';
          return $this->render('pattern', compact(['patterntitle','patterncomment','ret']) );
     }
      public function actionComponent () {
